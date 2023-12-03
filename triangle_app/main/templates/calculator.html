@@ -17,6 +17,15 @@
             margin-top: 10px;
         }
     </style>
+    <script>
+        function validateInput(input) {
+            // Проверяем, если введенное значение меньше или равно нулю
+            if (parseFloat(input.value) <= 0) {
+                alert("Пожалуйста, введите положительное число.");
+                input.value = "";  // Очищаем поле ввода
+            }
+        }
+    </script>
 </head>
 <body>
     <a href="{% url 'home' %}">Назад на главную страницу</a>
@@ -24,10 +33,10 @@
     <form method="post" action="{% url 'calculate_triangle' %}">
         {% csrf_token %}
         <label for="side_a">Сторона A:</label>
-        <input type="number" name="side_a" value="{{ request.POST.side_a }}" required>
+        <input type="number" name="side_a" value="{{ request.POST.side_a }}" required oninput="validateInput(this)">
         <br>
         <label for="side_b">Сторона B:</label>
-        <input type="number" name="side_b" value="{{ request.POST.side_b }}" required>
+        <input type="number" name="side_b" value="{{ request.POST.side_b }}" required oninput="validateInput(this)">
         <br>
         <button type="submit" name="calculate">Рассчитать</button>
     </form>
